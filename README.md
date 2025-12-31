@@ -1,7 +1,7 @@
 # zine-arranger
 Arranges PDFs into printable zine layouts
 
-Use the tool online here: https://nashhigh.itch.io/zinearranger
+Use the tool online here: https://only1thor.github.io/zine-maker/
 
 Arrange multi-page PDF files into a printable zine layout!
 
