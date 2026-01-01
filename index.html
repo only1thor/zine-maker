@@ -367,7 +367,7 @@ small {
     }
     
     .zine-sheet {
-        margin: 0.25rem 0;
+        margin: 0;
         transform: scale(var(--sheet-scale));
         transform-origin: center center;
         background-color: white;
@@ -406,7 +406,7 @@ small {
         }
         
         .zine-sheet {
-            margin: 0.125rem 0;
+            margin: 0;
             transform: scale(calc(var(--sheet-scale) * 0.5));
         }
     }
@@ -527,14 +527,14 @@ small {
                             <div class="col-md-6 mb-4">
                                 <h5 class="mb-3">Zine Size</h5>
                                 <div class="form-check mb-2">
-                                    <input class="form-check-input" type="radio" id="zs-mini" name="zsize" checked onchange="selectEighthSize()">
+                                    <input class="form-check-input" type="radio" id="zs-mini" name="zsize" onchange="selectEighthSize()">
                                     <label class="form-check-label" for="zs-mini">
                                         <strong>Eighth Size</strong> (Mini-zine)
                                         <br><small class="text-muted">8 pages per sheet, compact format</small>
                                     </label>
                                 </div>
                                 <div class="form-check mb-2">
-                                    <input class="form-check-input" type="radio" id="zs-qtr" name="zsize" onchange="selectQuarterSize()">
+                                    <input class="form-check-input" type="radio" id="zs-qtr" name="zsize" checked onchange="selectQuarterSize()">
                                     <label class="form-check-label" for="zs-qtr">
                                         <strong>Quarter Size</strong>
                                         <br><small class="text-muted">4 pages per sheet, medium format</small>
@@ -691,9 +691,9 @@ small {
 
     <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script>
-    var eighthSize = true; // whether the zine is an eighth size mini (false=either quarter or half depending on halfSize bit)
+    var eighthSize = false; // whether the zine is an eighth size mini (false=either quarter or half depending on halfSize bit)
     var halfSize = false; // whether the zine is a half-size mini (false=either eighth or quarter, depending on eighthSize bit)
-    var doubleSided = false; // whether we are printing double-sided
+    var doubleSided = true; // whether we are printing double-sided
     var zinePortrait = true; // whether the zine is portrait orientation (false=landscape)
     var spineSide = true; // whether the spine is on the side of the zine (false=top spine)
     
@@ -712,7 +712,7 @@ small {
     var pageHeight = 425;
     var pageCount = 0;
     
-    var specsString = "e1ps";
+    var specsString = "q2ps";
     
     var pgunit = "in";
     
