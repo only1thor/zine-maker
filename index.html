@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zine Arranger! For PDFs</title>
+    <link rel="stylesheet" href="./vendor/bootstrap/css/bootstrap.min.css">
 </head>
 
 <style>
@@ -19,36 +21,96 @@
     --sheet-scale: 1;
 }
 
-* {
+body {
     image-resolution: 300dpi;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    background-color: #DDD;
+    background-color: #f8f9fa;
 }
 
-p {
-    margin: 5px;
-    font-family: "Garamond", "Georgia", serif;
+.app-container {
+    background-color: #fff;
 }
 
-h1 {
-    font-family: "Garamond", "Georgia", serif;
-    font-size: 36pt;
+.header-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 3rem 0 2rem;
+    margin-bottom: 2rem;
+}
+
+.header-section h1 {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.step-card {
+    transition: all 0.3s ease;
+    border-left: 4px solid #667eea;
+}
+
+.step-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     font-weight: bold;
+    font-size: 1.2rem;
+    margin-right: 1rem;
 }
 
-button {
-    margin: 10px;
-    padding: 10px;
+.file-input-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
 }
 
-input {
-    margin: 5px 5px 0px 15px;
+.file-input-wrapper input[type="file"] {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
 }
 
-.num-input {
-    background-color: #FFF;
+.file-input-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    border: 3px dashed #667eea;
+    border-radius: 0.5rem;
+    background-color: #f8f9ff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.file-input-label:hover {
+    background-color: #e8ebff;
+    border-color: #764ba2;
+}
+
+.file-input-label svg {
+    margin-right: 0.5rem;
+}
+
+.settings-section, .preview-section {
+    display: none;
+}
+
+.settings-section.active, .preview-section.active {
+    display: block;
+}
+
+.alert-custom {
+    background-color: #fff3cd;
+    border-left: 4px solid #ffc107;
 }
 
 .zine-sheet {
@@ -153,35 +215,44 @@ input {
     .zine-frame {
         display: flex;
         align-items: center;
-        justify-content: space-around;
+        justify-content: center;
         margin: 12px;
+        width: 100%;
     }
     
     .zine-sheet {
         margin: 12px;
         transform: scale(var(--sheet-scale));
-        transform-origin: top left;
+        transform-origin: top center;
+        background-color: white;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
     
     .zine-page {
-        border: 2px solid black;
+        border: 2px solid #dee2e6;
+        background-color: white;
     }
     
-    .header {
-        margin: 12px 0px 0px 0px;
-        width: 100vw;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-around;
+    .noprint {
+        display: block;
     }
     
-    .header-item {
-        width: 90%;
-        margin: 8px;
-        display: flex;
-        flex-direction: row;
-        align-items: left;
+    @media (max-width: 768px) {
+        .header-section {
+            padding: 2rem 0 1rem;
+        }
+        
+        .header-section h1 {
+            font-size: 2rem;
+        }
+        
+        .step-card {
+            margin-bottom: 1rem;
+        }
+        
+        .zine-sheet {
+            transform: scale(calc(var(--sheet-scale) * 0.5));
+        }
     }
 }
 
@@ -191,25 +262,34 @@ input {
         bleed: 0;
     }
     
+    body {
+        background-color: white;
+    }
+    
     .zine-sheet {
         width: 100vw;
         height: 100vh;
         float: left;
-        /*gap: 1.5px;*/
         page-break-after: always;
         page-break-inside: avoid;
-        /*border: 4px dashed black;*/
+        box-shadow: none;
+        margin: 0;
+        transform: none;
     }
     
     .zine-page {
-        /*padding: .2rem;*/
-        /*width: var(--page-vw)
-        height: var(--page-vh)*/
-        /*border: 2px solid black;*/
+        border: none;
     }
     
     .noprint {
-        display: none;
+        display: none !important;
+    }
+    
+    .app-container, .container {
+        width: 100%;
+        max-width: none;
+        padding: 0;
+        margin: 0;
     }
 }
 </style>
@@ -220,85 +300,241 @@ input {
 
 <script src="./pdfjs/build/pdf.js"></script>
 
-<section class="header noprint">
-    <section class="header">
-        <header><h1>Zine Arranger!</h1></header>
-        <p>Convert a multi-page PDF into a zine!</p>
-        <p id="lbl-pc-mult">To avoid blank pages at the end, the page count should be a multiple of 8.</p>
-        <p id="folding-ins"></p>
-    </section>
-    <section class="header-item">
-        <p>Choose the PDF:</p>
-        <input type="file" id="selector"></input>
-    </section>
-    <section class="header-item">
-        <p>Once you've got your PDF, click the Print button to print or save it! (Choose "Save as PDF" or "Print to File" to save the zine.)</p>
-        <button onclick="window.print()">Print</button>
-    </section>
-    <section class="header-item" id="options">
-        <section id="opt-zinesize">
-            <p>Zine Size</p>
-            <input type="radio" id="zs-mini" name="zsize" checked="true" onchange="selectEighthSize()"></input>
-            <label for="zs-mini">Eighth Size (Minizine)</label><br>
-            <input type="radio" id="zs-qtr" name="zsize" onchange="selectQuarterSize()"></input>
-            <label for="zs-qtr">Quarter Size</label><br>
-            <input type="radio" id="zs-half" name="zsize" onchange="selectHalfSize()"></input>
-            <label for="zs-half">Half Size</label><br>
-        </section>
-        <section id="show-more-options" onclick="toggleAdvancedOptions()">
-            <input type="checkbox" id="show-more"></input>
-            <label for="show-more">Show Advanced Options</label>
-        </section>
-    </section>
-    <section id="advanced-options-a" class="header-item" style="display:none;">
-        <section id="opt-duplex">
-            <p>Print on:</p>
-            <input type="radio" id="dx-double" name="duplex" onchange="refreshSpecs()"></input>
-            <label for="dx-double">Both Sides</label><br>
-            <input type="radio" id="dx-single" name="duplex" checked="true" onchange="refreshSpecs()"></input>
-            <label for="dx-single">One Side</label><br>
-        </section>
-        <section id="opt-orient">
-            <p>Zine Orientation:</p>
-            <input type="radio" id="ori-portrait" name="paper-orient" checked="true" onchange="refreshSpecs()"></input>
-            <label for="ori-portrait">Portrait</label><br>
-            <input type="radio" id="ori-landscape" name="paper-orient" onchange="refreshSpecs()"></input>
-            <label for="ori-landscape">Landscape</label><br>
-        </section>
-        <section id="opt-spine">
-            <p>Booklet spine:</p>
-            <input type="radio" id="spine-side" name="spine-orient" checked="true" onchange="refreshSpecs()"></input>
-            <label for="spine-side">Side</label><br>
-            <input type="radio" id="spine-top" name="spine-orient" onchange="refreshSpecs()"></input>
-            <label for="spine-top">Top</label><br>
-            <input type="checkbox" id="flip-bc" onchange="refreshSpecs()"></input>
-            <label id="flip-bc-label" for="flip-bc">Flip Back Cover (for Top-Fold Zines)</label>
-        </section>
-    </section>
-    <section id="advanced-options-b" class="header-item" style="display:none;">
-        <section id="opt-ratio">
-            <p>Paper Size</p>
-            <input type="number" class="num-input" id="rt-width" min="0.25" max="1100" value="8.5" onchange="refreshSpecs()"></input>
-            <label id="rt-width-label" for="rt-width">Width</label><br>
-            <input type="number" class="num-input" id="rt-height" min="0.25" max="1100" value="11" onchange="refreshSpecs()"></input>
-            <label id="rt-height-label" for="rt-height">Height</label><br><input type="radio" id="page-inches" name="page-unit" checked="true" onchange="refreshSpecs()"></input>
-            <label for="page-inches">Inches</label><br>
-            <input type="radio" id="page-mm" name="page-unit" onchange="refreshSpecs()"></input>
-            <label for="page-mm">Millimeters</label>
-        </section>
-        <section id="opt-page-presets">
-            <button id="page-us-letter" onclick="setPageUSLetter()">US Letter</button><br>
-            <button id="page-a4" onclick="setPageA4()">A4</button><br>
-        </section>
-    </section>
-    <section class="header-item">
-        <p></p>
-    </section>
-</section>
-<section class="zine" id="zine" style="display:none">
-</section>
+<body>
+    <!-- Header Section -->
+    <div class="header-section noprint">
+        <div class="container">
+            <div class="text-center">
+                <h1>📖 Zine Arranger</h1>
+                <p class="lead">Transform your PDF into a printable zine in three easy steps</p>
+            </div>
+        </div>
+    </div>
 
-<script>
+    <div class="app-container">
+        <div class="container py-4 noprint">
+            
+            <!-- Step 1: Upload PDF -->
+            <div class="card step-card mb-4" id="step1-card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <span class="step-number">1</span>
+                        <h3 class="mb-0">Upload Your PDF</h3>
+                    </div>
+                    <p class="text-muted mb-3">Choose a PDF file to convert into a zine format</p>
+                    
+                    <div class="file-input-wrapper">
+                        <input type="file" id="selector" accept=".pdf" class="form-control">
+                        <label for="selector" class="file-input-label" id="file-label">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                            <span id="file-label-text">
+                                <strong>Click to select a PDF file</strong><br>
+                                <small class="text-muted">or drag and drop here</small>
+                            </span>
+                        </label>
+                    </div>
+                    
+                    <div id="file-info" class="mt-3" style="display: none;">
+                        <div class="alert alert-success d-flex align-items-center">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            <div>
+                                <strong>File loaded:</strong> <span id="file-name"></span><br>
+                                <small><span id="page-count"></span> pages</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Configure Settings -->
+            <div class="settings-section" id="step2-section">
+                <div class="card step-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="step-number">2</span>
+                            <h3 class="mb-0">Configure Zine Settings</h3>
+                        </div>
+                        <p class="text-muted mb-4">Customize your zine layout and format</p>
+                        
+                        <div id="page-count-warning" class="alert alert-custom mb-4" style="display: none;">
+                            <strong>⚠️ Page Count Notice:</strong> <span id="lbl-pc-mult"></span>
+                        </div>
+
+                        <div class="row">
+                            <!-- Zine Size -->
+                            <div class="col-md-6 mb-4">
+                                <h5 class="mb-3">Zine Size</h5>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" id="zs-mini" name="zsize" checked onchange="selectEighthSize()">
+                                    <label class="form-check-label" for="zs-mini">
+                                        <strong>Eighth Size</strong> (Mini-zine)
+                                        <br><small class="text-muted">8 pages per sheet, compact format</small>
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" id="zs-qtr" name="zsize" onchange="selectQuarterSize()">
+                                    <label class="form-check-label" for="zs-qtr">
+                                        <strong>Quarter Size</strong>
+                                        <br><small class="text-muted">4 pages per sheet, medium format</small>
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="zs-half" name="zsize" onchange="selectHalfSize()">
+                                    <label class="form-check-label" for="zs-half">
+                                        <strong>Half Size</strong>
+                                        <br><small class="text-muted">2 pages per sheet, large format</small>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Basic Options -->
+                            <div class="col-md-6 mb-4">
+                                <h5 class="mb-3">Printing Options</h5>
+                                <div class="mb-3">
+                                    <label class="form-label"><strong>Print on:</strong></label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" id="dx-single" name="duplex" checked onchange="refreshSpecs()">
+                                        <label class="form-check-label" for="dx-single">One Side</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" id="dx-double" name="duplex" onchange="refreshSpecs()">
+                                        <label class="form-check-label" for="dx-double">Both Sides (Duplex)</label>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label"><strong>Zine Orientation:</strong></label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" id="ori-portrait" name="paper-orient" checked onchange="refreshSpecs()">
+                                        <label class="form-check-label" for="ori-portrait">Portrait</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" id="ori-landscape" name="paper-orient" onchange="refreshSpecs()">
+                                        <label class="form-check-label" for="ori-landscape">Landscape</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Advanced Options (Collapsible) -->
+                        <div class="accordion" id="advancedAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#advancedOptions">
+                                        <strong>Advanced Options</strong>
+                                    </button>
+                                </h2>
+                                <div id="advancedOptions" class="accordion-collapse collapse" data-bs-parent="#advancedAccordion">
+                                    <div class="accordion-body">
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <h6>Booklet Spine</h6>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" id="spine-side" name="spine-orient" checked onchange="refreshSpecs()">
+                                                    <label class="form-check-label" for="spine-side">Side</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" id="spine-top" name="spine-orient" onchange="refreshSpecs()">
+                                                    <label class="form-check-label" for="spine-top">Top</label>
+                                                </div>
+                                                <div class="form-check mt-2">
+                                                    <input class="form-check-input" type="checkbox" id="flip-bc" onchange="refreshSpecs()">
+                                                    <label class="form-check-label" for="flip-bc">
+                                                        <small>Flip Back Cover (for Top-Fold Zines)</small>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6 mb-3">
+                                                <h6>Paper Size</h6>
+                                                <div class="row g-2 mb-2">
+                                                    <div class="col">
+                                                        <label for="rt-width" class="form-label" id="rt-width-label">Width</label>
+                                                        <input type="number" class="form-control form-control-sm" id="rt-width" min="0.25" max="1100" value="8.5" onchange="refreshSpecs()">
+                                                    </div>
+                                                    <div class="col">
+                                                        <label for="rt-height" class="form-label" id="rt-height-label">Height</label>
+                                                        <input type="number" class="form-control form-control-sm" id="rt-height" min="0.25" max="1100" value="11" onchange="refreshSpecs()">
+                                                    </div>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="page-inches" name="page-unit" checked onchange="refreshSpecs()">
+                                                    <label class="form-check-label" for="page-inches">Inches</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="page-mm" name="page-unit" onchange="refreshSpecs()">
+                                                    <label class="form-check-label" for="page-mm">Millimeters</label>
+                                                </div>
+                                                <div class="mt-2">
+                                                    <button class="btn btn-sm btn-outline-secondary me-2" onclick="setPageUSLetter()">US Letter</button>
+                                                    <button class="btn btn-sm btn-outline-secondary" onclick="setPageA4()">A4</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Print -->
+            <div class="preview-section" id="step3-section">
+                <div class="card step-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="step-number">3</span>
+                            <h3 class="mb-0">Print Your Zine</h3>
+                        </div>
+                        <p class="text-muted mb-3">Preview your zine layout below, then print or save as PDF</p>
+                        
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            <button class="btn btn-primary btn-lg" onclick="window.print()">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-2" style="display: inline-block; vertical-align: middle;">
+                                    <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                                    <rect x="6" y="14" width="12" height="8"></rect>
+                                </svg>
+                                Print Zine
+                            </button>
+                            <a href="#" id="folding-ins-link" class="btn btn-outline-primary btn-lg">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-2" style="display: inline-block; vertical-align: middle;">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                                </svg>
+                                Folding Instructions
+                            </a>
+                        </div>
+
+                        <div class="alert alert-info">
+                            <strong>💡 Printing Tips:</strong>
+                            <ul class="mb-0 mt-2">
+                                <li>Choose "Save as PDF" or "Print to File" to save the zine without printing</li>
+                                <li>Ensure your printer settings match the paper size selected above</li>
+                                <li>For duplex printing, enable "Print on both sides" in your printer settings</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Zine Preview/Output -->
+        <section class="zine" id="zine" style="display:none">
+        </section>
+    </div>
+
+    <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
     var eighthSize = true; // whether the zine is an eighth size mini (false=either quarter or half depending on halfSize bit)
     var halfSize = false; // whether the zine is a half-size mini (false=either eighth or quarter, depending on eighthSize bit)
     var doubleSided = false; // whether we are printing double-sided
@@ -323,6 +559,44 @@ input {
     var specsString = "e1ps";
     
     var pgunit = "in";
+    
+    // UI State Management
+    function showSettings() {
+        document.getElementById('step2-section').classList.add('active');
+        document.getElementById('step2-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    
+    function showPreview() {
+        document.getElementById('step3-section').classList.add('active');
+        document.getElementById('step3-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    
+    function updatePageCountWarning() {
+        var pgmult = 0;
+        
+        if(eighthSize) {
+            pgmult = doubleSided ? 16 : 8;
+        } else if(halfSize) {
+            pgmult = 4;
+        } else { // quarter size
+            pgmult = doubleSided ? 8 : 4;
+        }
+        
+        var warningEl = document.getElementById("page-count-warning");
+        var labelEl = document.getElementById("lbl-pc-mult");
+        
+        if (pageCount > 0 && pageCount % pgmult !== 0) {
+            warningEl.style.display = "block";
+            labelEl.innerHTML = "Your PDF has " + pageCount + " pages. To avoid blank pages, the page count should be a multiple of " + pgmult + ". " + (pgmult - (pageCount % pgmult)) + " blank page(s) will be added.";
+        } else if (pageCount > 0) {
+            warningEl.style.display = "block";
+            labelEl.innerHTML = "Your PDF has " + pageCount + " pages, which is perfect for this format!";
+            warningEl.classList.remove('alert-custom');
+            warningEl.classList.add('alert-success');
+        } else {
+            warningEl.style.display = "none";
+        }
+    }
     
     function toggleAdvancedOptions() {
         if(document.getElementById("show-more").checked) {
@@ -404,9 +678,11 @@ input {
         } else {
             specsString = specsString + "t";
         }
-        document.getElementById("folding-ins").innerHTML = "<a href=\"folding.html?" + specsString + "\">Folding Instructions</a>";
         
-        var pgmult = 0
+        // Update folding instructions link
+        document.getElementById("folding-ins-link").href = "folding.html?" + specsString;
+        
+        updatePageCountWarning();
         
         if(eighthSize) {
             if(doubleSided) {
@@ -425,7 +701,11 @@ input {
         }
          
         
-        document.getElementById("lbl-pc-mult").innerHTML = "To avoid blank pages at the end, the page count should be a multiple of " + pgmult + ".";
+        updatePageCountWarning();
+        
+        if (pageCount > 0) {
+            document.getElementById("lbl-pc-mult").innerHTML = "To avoid blank pages at the end, the page count should be a multiple of " + pgmult + ".";
+        }
         
         // calculate paper orientation based on above options
         pagePortrait = ((eighthSize || halfSize) && !zinePortrait) || (!(eighthSize || halfSize) && zinePortrait);
@@ -508,8 +788,20 @@ input {
     
     function selectFile() {
         if(document.getElementById("selector").files.length > 0) {
-            document.getElementById("zine").style.display = "block";
             var fl = document.getElementById("selector").files[0];
+            
+            // Update UI to show file is loaded
+            document.getElementById("file-info").style.display = "block";
+            document.getElementById("file-name").textContent = fl.name;
+            
+            // Update file label
+            document.getElementById("file-label-text").innerHTML = '<strong>File selected:</strong> ' + fl.name + '<br><small class="text-muted">Click to choose a different file</small>';
+            
+            document.getElementById("zine").style.display = "block";
+            
+            // Show settings section
+            showSettings();
+            
             var nms = fl.name.split(".");
             if(nms.length > 1) {
                 document.title = nms[0] + "-Printable." + nms[1];
@@ -524,7 +816,15 @@ input {
                 
                 var actualPageCount = pdf.numPages;
                 pageCount = actualPageCount;
+                
+                // Update page count display
+                document.getElementById("page-count").textContent = pageCount;
+                
+                updatePageCountWarning();
                 arrangeZineSheets();
+                
+                // Show preview section after processing
+                showPreview();
                 //
                 // Fetch the first page
                 //
@@ -1045,9 +1345,47 @@ input {
             document.getElementById("page-orient-style").innerHTML = "@media print { @page { size: landscape; } }";
         }
     }
-            
     
     document.getElementById("selector").addEventListener("change", refreshSpecs, false);
+    
+    // Drag and drop functionality
+    const fileLabel = document.getElementById('file-label');
+    const fileInput = document.getElementById('selector');
+    
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        fileLabel.addEventListener(eventName, preventDefaults, false);
+    });
+    
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+    
+    ['dragenter', 'dragover'].forEach(eventName => {
+        fileLabel.addEventListener(eventName, () => {
+            fileLabel.style.borderColor = '#764ba2';
+            fileLabel.style.backgroundColor = '#e8ebff';
+        }, false);
+    });
+    
+    ['dragleave', 'drop'].forEach(eventName => {
+        fileLabel.addEventListener(eventName, () => {
+            fileLabel.style.borderColor = '#667eea';
+            fileLabel.style.backgroundColor = '#f8f9ff';
+        }, false);
+    });
+    
+    fileLabel.addEventListener('drop', (e) => {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        
+        if (files.length > 0 && files[0].type === 'application/pdf') {
+            fileInput.files = files;
+            refreshSpecs();
+        }
+    }, false);
+    
     refreshSpecs();
 </script>
+</body>
 </html>
