@@ -1,0 +1,432 @@
+/* CSS Variables */
+:root {
+    /* Layout dimensions */
+    --sheet-width: 850px;
+    --sheet-height: 1100px;
+    --page-width: 425px;
+    --page-height: 275px;
+    --page-vw: 25vw;
+    --pagevh: 50vh;
+    --sheet-scale: 1;
+    
+    /* Dark mode colors */
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --bg-card: #242424;
+    --text-primary: #e0e0e0;
+    --text-secondary: #b0b0b0;
+    --border-color: #404040;
+    --accent-purple: #8b5cf6;
+    --accent-purple-dark: #7c3aed;
+}
+
+/* Base Styles */
+body {
+    image-resolution: 300dpi;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+}
+
+small {
+    color: var(--text-secondary);
+}
+
+/* Layout Components */
+.app-container {
+    background-color: var(--bg-primary);
+}
+
+.header-section {
+    background: linear-gradient(135deg, #6d28d9 0%, #7c3aed 100%);
+    color: white;
+    padding: 3rem 0 2rem;
+    margin-bottom: 2rem;
+}
+
+.header-section h1 {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+/* Step Cards */
+.step-card {
+    transition: all 0.3s ease;
+    border-left: 4px solid var(--accent-purple);
+    background-color: var(--bg-card);
+    border-color: var(--border-color);
+}
+
+.step-card:hover {
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    color: white;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-right: 1rem;
+}
+
+/* File Upload */
+.file-input-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.file-input-wrapper input[type="file"] {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.file-input-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    border: 3px dashed var(--accent-purple);
+    border-radius: 0.5rem;
+    background-color: var(--bg-secondary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--text-primary);
+}
+
+.file-input-label:hover {
+    background-color: var(--bg-card);
+    border-color: var(--accent-purple-dark);
+}
+
+.file-input-label svg {
+    margin-right: 0.5rem;
+}
+
+/* Section Visibility */
+.settings-section, 
+.preview-section {
+    display: block;
+}
+
+/* Custom Alerts */
+.alert-custom {
+    background-color: #3d3000;
+    border-left: 4px solid #ffc107;
+    color: #ffd54f;
+}
+
+/* Bootstrap Dark Mode Overrides */
+.card {
+    background-color: var(--bg-card);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+.card-body {
+    background-color: var(--bg-card);
+}
+
+.form-label, 
+.form-check-label, 
+label {
+    color: var(--text-primary);
+}
+
+.text-muted {
+    color: var(--text-secondary);
+}
+
+.form-control, 
+.form-control:focus {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+.form-check-input {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+.form-check-input:checked {
+    background-color: var(--accent-purple);
+    border-color: var(--accent-purple);
+}
+
+.btn-primary {
+    background-color: var(--accent-purple);
+    border-color: var(--accent-purple);
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-purple-dark);
+    border-color: var(--accent-purple-dark);
+}
+
+.btn-outline-primary {
+    color: var(--accent-purple);
+    border-color: var(--accent-purple);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--accent-purple);
+    border-color: var(--accent-purple);
+    color: white;
+}
+
+.btn-outline-secondary {
+    color: var(--text-secondary);
+    border-color: var(--border-color);
+}
+
+.btn-outline-secondary:hover {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+.alert {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+.alert-success {
+    background-color: #1a3d1a;
+    border-color: #2d5f2d;
+    color: #86efac;
+}
+
+.alert-info {
+    background-color: #1a2d3d;
+    border-color: #2d4a5f;
+    color: #7dd3fc;
+}
+
+.accordion-item {
+    background-color: var(--bg-card);
+    border-color: var(--border-color);
+}
+
+.accordion-button {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: var(--bg-card);
+    color: var(--accent-purple);
+}
+
+.accordion-button:focus {
+    border-color: var(--accent-purple);
+    box-shadow: 0 0 0 0.25rem rgba(139, 92, 246, 0.25);
+}
+
+.accordion-body {
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+}
+
+.lead {
+    color: var(--text-primary);
+}
+
+/* Zine Layout - Base */
+.zine-sheet {
+    width: var(--sheet-width);
+    height: var(--sheet-height);
+    display: grid;
+    grid-template-areas:
+        "tl tr"
+        "bl br";
+}
+
+/* Zine Layout - Quarter Size */
+.qtr-side {
+    grid-template-areas:
+        "tl tr"
+        "bl br";
+}
+
+.qtr-top {
+    grid-template-areas:
+        "tl bl"
+        "tr br";
+}
+
+/* Zine Layout - Eighth Size */
+.eig-por {
+    grid-template-areas:
+        "tl tml tmr tr"
+        "bl bml bmr br"
+}
+
+.eig-lnd {
+    grid-template-areas:
+        "bl tl"
+        "bml tml"
+        "bmr tmr"
+        "br tr"
+}
+
+/* Zine Layout - Half Size */
+.half-por {
+    grid-template-areas:
+        "tl tr"
+}
+
+.half-ldn {
+    grid-template-areas:
+        "tr"
+        "tl"
+}
+
+/* Zine Page */
+.zine-page {
+    width: var(--page-width);
+    height: var(--page-height);
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+/* Grid Area Assignments */
+.tl { grid-area: tl; }
+.tr { grid-area: tr; }
+.bl { grid-area: bl; }
+.br { grid-area: br; }
+.tml { grid-area: tml; }
+.tmr { grid-area: tmr; }
+.bml { grid-area: bml; }
+.bmr { grid-area: bmr; }
+
+/* Rotation */
+.rotate {
+    transform: rotate(180deg);
+}
+
+/* Screen Display Styles */
+@media screen {
+    .zine-frame {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        width: 100%;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+    
+    .zine-preview-container {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, max-content));
+        column-gap: 2rem;
+        row-gap: 0;
+        justify-content: center;
+        align-items: start;
+        padding: 2rem 1rem;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+    
+    .zine-sheet {
+        margin: 0;
+        transform: scale(var(--sheet-scale));
+        transform-origin: center center;
+        background-color: white;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        justify-self: center;
+        align-self: center;
+    }
+    
+    .zine-page {
+        border: 2px solid #dee2e6;
+        background-color: white;
+    }
+    
+    .noprint {
+        display: block;
+    }
+}
+
+/* Mobile Responsive */
+@media screen and (max-width: 768px) {
+    .header-section {
+        padding: 2rem 0 1rem;
+    }
+    
+    .header-section h1 {
+        font-size: 2rem;
+    }
+    
+    .step-card {
+        margin-bottom: 1rem;
+    }
+    
+    .zine-preview-container {
+        grid-template-columns: minmax(0, max-content);
+        column-gap: 0;
+        row-gap: 0;
+        padding: 1rem 0.5rem;
+    }
+    
+    .zine-sheet {
+        margin: 0;
+        transform: scale(calc(var(--sheet-scale) * 0.5));
+    }
+}
+
+/* Print Styles */
+@media print {
+    @page {
+        margin: 0;
+        bleed: 0;
+    }
+    
+    body {
+        background-color: white;
+    }
+    
+    .zine-sheet {
+        width: 100vw;
+        height: 100vh;
+        float: left;
+        page-break-after: always;
+        page-break-inside: avoid;
+        box-shadow: none;
+        margin: 0;
+        transform: none;
+    }
+    
+    .zine-page {
+        border: none;
+    }
+    
+    .noprint {
+        display: none;
+    }
+    
+    .app-container, 
+    .container {
+        width: 100%;
+        max-width: none;
+        padding: 0;
+        margin: 0;
+    }
+}
