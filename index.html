@@ -296,11 +296,11 @@ small {
 .zine-page {
     width: var(--page-width);
     height: var(--page-height);
-    padding: .2rem;
+    padding: 0;
     overflow: hidden;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     flex: 1;
 }
 
@@ -356,21 +356,24 @@ small {
     
     .zine-preview-container {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.25rem 1rem;
-        justify-items: center;
+        grid-template-columns: repeat(2, minmax(0, max-content));
+        column-gap: 2rem;
+        row-gap: 0;
+        justify-content: center;
         align-items: start;
-        padding: 1rem;
+        padding: 2rem 1rem;
         max-width: 1400px;
         margin: 0 auto;
     }
     
     .zine-sheet {
-        margin: 0;
+        margin: 0.25rem 0;
         transform: scale(var(--sheet-scale));
-        transform-origin: top center;
+        transform-origin: center center;
         background-color: white;
         box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        justify-self: center;
+        align-self: center;
     }
     
     .zine-page {
@@ -396,12 +399,14 @@ small {
         }
         
         .zine-preview-container {
-            grid-template-columns: 1fr;
-            gap: 0.125rem;
-            padding: 0.5rem;
+            grid-template-columns: minmax(0, max-content);
+            column-gap: 0;
+            row-gap: 0;
+            padding: 1rem 0.5rem;
         }
         
         .zine-sheet {
+            margin: 0.125rem 0;
             transform: scale(calc(var(--sheet-scale) * 0.5));
         }
     }
@@ -514,7 +519,7 @@ small {
                         <p class="text-muted mb-4">Customize your zine layout and format</p>
                         
                         <div id="page-count-warning" class="alert alert-custom mb-4" style="display: none;">
-                            <strong>⚠️ Page Count Notice:</strong> <span id="lbl-pc-mult"></span>
+                            <strong>ℹ️ Page Count Notice:</strong> <span id="lbl-pc-mult"></span>
                         </div>
 
                         <div class="row">
