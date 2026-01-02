@@ -1,409 +1,374 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Zine Arranger! Folding Instructions</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zine Arranger - Folding Instructions</title>
+    <link rel="stylesheet" href="./vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./folding.css">
 </head>
 
-<style>
-* {
-    image-resolution: 300dpi;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    background-color: #DDD;
-}
+<body>
+    <!-- Header Section -->
+    <div class="header-section">
+        <div class="container">
+            <div class="text-center">
+                <h1>📖 Folding Instructions</h1>
+                <p class="lead">Select your zine settings to view folding instructions</p>
+                <a href="index.html" class="btn btn-outline-primary mt-2">← Back to Zine Arranger</a>
+            </div>
+        </div>
+    </div>
 
-p {
-    margin: 5px;
-    font-family: "Garamond", "Georgia", serif;
-}
+    <div class="app-container">
+        <div class="container py-4">
+            <!-- Settings Selection -->
+            <div class="card step-card mb-4">
+                <div class="card-body">
+                    <h3 class="mb-4">Select Your Zine Settings</h3>
+                    
+                    <div class="row">
+                        <!-- Zine Size -->
+                        <div class="col-md-6 col-lg-3 mb-3">
+                            <h5 class="mb-3">Zine Size</h5>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" id="zs-mini" name="zsize" checked onchange="refreshSpecs()">
+                                <label class="form-check-label" for="zs-mini">Eighth (Mini)</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" id="zs-qtr" name="zsize" onchange="refreshSpecs()">
+                                <label class="form-check-label" for="zs-qtr">Quarter</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="zs-half" name="zsize" onchange="refreshSpecs()">
+                                <label class="form-check-label" for="zs-half">Half</label>
+                            </div>
+                        </div>
 
-h1 {
-    font-family: "Garamond", "Georgia", serif;
-    font-size: 36pt;
-    font-weight: bold;
-}
+                        <!-- Print on -->
+                        <div class="col-md-6 col-lg-3 mb-3">
+                            <h5 class="mb-3">Print on:</h5>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" id="dx-double" name="duplex" checked onchange="refreshSpecs()">
+                                <label class="form-check-label" for="dx-double">Both Sides (Duplex)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="dx-single" name="duplex" onchange="refreshSpecs()">
+                                <label class="form-check-label" for="dx-single">One Side</label>
+                            </div>
+                        </div>
 
-ol {
-    width: 90%;
-    flex: 1;
-}
+                        <!-- Orientation -->
+                        <div class="col-md-6 col-lg-3 mb-3">
+                            <h5 class="mb-3">Zine Orientation:</h5>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" id="ori-portrait" name="paper-orient" checked onchange="refreshSpecs()">
+                                <label class="form-check-label" for="ori-portrait">Portrait</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="ori-landscape" name="paper-orient" onchange="refreshSpecs()">
+                                <label class="form-check-label" for="ori-landscape">Landscape</label>
+                            </div>
+                        </div>
 
-.header {
-    margin: 12px;
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-}
+                        <!-- Spine -->
+                        <div class="col-md-6 col-lg-3 mb-3">
+                            <h5 class="mb-3">Booklet Spine:</h5>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" id="spine-side" name="spine-orient" checked onchange="refreshSpecs()">
+                                <label class="form-check-label" for="spine-side">Side</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="spine-top" name="spine-orient" onchange="refreshSpecs()">
+                                <label class="form-check-label" for="spine-top">Top</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-.header-item {
-    width: 90%;
-    margin: 8px;
-    display: flex;
-    flex-direction: row;
-    align-items: left;
-}
+            <!-- Instructions Content -->
 
-button {
-    margin: 10px;
-    padding: 10px;
-}
+            <div class="card step-card instruction-section" id="e1ps">
+                <div class="card-body">
+                    <h2 class="mb-3">Eighth Size (Mini)</h2>
+                    <p class="text-muted mb-4">Single-Sided / Portrait / Side-Fold</p>
+                    <ol class="mb-4">
+                        <li>Hold the page with the front cover at the bottom right.</li>
+                        <li>Fold in half (hamburger style).</li>
+                        <li>Cut along the top of the back cover, to create a slit in the middle of the paper.</li>
+                        <li>Unfold, then fold in half (hotdog style).</li>
+                        <li>Push the two sides in, allowing the middle pages to split out into a diamond.</li>
+                        <li>Starting with the back cover, fold the pages together until the back is opposite the front.</li>
+                    </ol>
+                    <img src="img/folding-e1ps.png" alt="Folding diagram" class="instruction-image">
+                </div>
+            </div>
 
-input {
-    margin: 5px 5px 0px 15px;
-}
+            <div class="card step-card instruction-section" id="e1pt">
+                <div class="card-body">
+                    <h2 class="mb-3">Eighth Size (Minizine)</h2>
+                    <p class="text-muted mb-4">Single-Sided / Portrait / Top-Fold</p>
+                    <ol class="mb-4">
+                        <li>Hold the page with the front cover at the bottom left.</li>
+                        <li>On the top row: Cut between the first and second page in the row, and between the third and fourth page in the row.</li>
+                        <li>On the bottom: Cut between the second and third page in the row.</li>
+                        <li>Starting with the top right, fold down so the pages are face-to-face, then over so the pages are back-to-back.</li>
+                        <li>Repeat this pattern until you get to the back cover, which folds over the rest of the pages.</li>
+                        <li>Staple the middle spine to add some support.</li>
+                    </ol>
+                    <img src="img/folding-e1pt.png" alt="Folding diagram" class="instruction-image">
+                </div>
+            </div>
 
-img {
-    margin: 15px 0px 0px 0px;
-}
+            <div class="card step-card instruction-section" id="e1ls">
+                <div class="card-body">
+                    <h2 class="mb-3">Eighth Size (Minizine)</h2>
+                    <p class="text-muted mb-4">Single-Sided / Landscape / Side-Fold</p>
+                    <ol class="mb-4">
+                        <li>Hold the page with the front cover at the bottom right.</li>
+                        <li>On the left column: Cut the seam beneath the top page, and the seam above the bottom page.</li>
+                        <li>On the right column: Cut the seam between the middle two pages.</li>
+                        <li>Starting with the top left, fold over so the pages are face-to-face, then down so the pages are back-to-back.</li>
+                        <li>Repeat this pattern until you get to the back cover, which folds over the rest of the pages.</li>
+                        <li>Staple the middle spine to add some support.</li>
+                    </ol>
+                    <img src="img/folding-e1ls.png" alt="Folding diagram" class="instruction-image">
+                </div>
+            </div>
 
-</style>
+            <div class="card step-card instruction-section" id="e1lt">
+                <div class="card-body">
+                    <h2 class="mb-3">Eighth Size (Minizine)</h2>
+                    <p class="text-muted mb-4">Single-Sided / Landscape / Top-Fold</p>
+                    <ol class="mb-4">
+                        <li>Hold the page so the front cover is at the bottom right.</li>
+                        <li>Fold in half (hamburger style).</li>
+                        <li>Cut along the top of the back cover, to create a slit in the middle of the paper.</li>
+                        <li>Unfold, then fold in half (hotdog style).</li>
+                        <li>Push the two sides in, allowing the middle pages to split out into a diamond.</li>
+                        <li>Starting with the back cover, fold the pages together until the back is opposite the front.</li>
+                    </ol>
+                    <img src="img/folding-e1lt.png" alt="Folding diagram" class="instruction-image">
+                </div>
+            </div>
 
-<section class="header"><h1>Folding Instructions!</h1>
-<p>Select the layout settings for your zine to view instructions.</p>
-<p><a href="index.html">Zine Arranger</a></p></section>
+            <div class="card step-card instruction-section" id="e2ps">
+                <div class="card-body">
+                    <h2 class="mb-3">Eighth Size (16-Page Mini)</h2>
+                    <p class="text-muted mb-4">Double-Sided / Portrait / Side-Fold</p>
+                    <ol class="mb-4">
+                        <li>Hold the page with the front cover at the bottom right.</li>
+                        <li>Fold in half left-to-right, keeping the front visible.</li>
+                        <li>Fold in half top-to-bottom, keeping the front visible.</li>
+                        <li>Fold in half left-to-right again, keeping the front visible.</li>
+                        <li>Repeat for any additional sheets, nesting them in the middle fold of each previous sheet.</li>
+                        <li>Staple the spine, then cut around the outside edges to free up the pages.</li>
+                    </ol>
+                    <img src="img/folding-e2ps.png" alt="Folding diagram" class="instruction-image">
+                </div>
+            </div>
 
-<section class="header">
-    <section id="layout" class="header-item">
-        <section id="opt-zinesize">
-            <p>Zine Size</p>
-            <input type="radio" id="zs-mini" name="zsize" checked="true" onchange="refreshSpecs()"></input>
-            <label for="zs-mini">Eighth (Mini)</label><br>
-            <input type="radio" id="zs-qtr" name="zsize" onchange="refreshSpecs()"></input>
-            <label for="zs-qtr">Quarter</label><br>
-            <input type="radio" id="zs-half" name="zsize" onchange="refreshSpecs()"></input>
-            <label for="zs-half">Half</label><br>
-        </section>
-        <section id="opt-duplex">
-            <p>Print on:</p>
-            <input type="radio" id="dx-double" name="duplex" onchange="refreshSpecs()"></input>
-            <label for="dx-double">Both Sides</label><br>
-            <input type="radio" id="dx-single" name="duplex" checked="true" onchange="refreshSpecs()"></input>
-            <label for="dx-single">One Side</label><br>
-        </section>
-        <section id="opt-orient">
-            <p>Zine Orientation:</p>
-            <input type="radio" id="ori-portrait" name="paper-orient" checked="true" onchange="refreshSpecs()"></input>
-            <label for="ori-portrait">Portrait</label><br>
-            <input type="radio" id="ori-landscape" name="paper-orient" onchange="refreshSpecs()"></input>
-            <label for="ori-landscape">Landscape</label><br>
-        </section>
-        <section id="opt-spine">
-            <p>Booklet spine:</p>
-            <input type="radio" id="spine-side" name="spine-orient" checked="true" onchange="refreshSpecs()"></input>
-            <label for="spine-side">Side</label><br>
-            <input type="radio" id="spine-top" name="spine-orient" onchange="refreshSpecs()"></input>
-            <label for="spine-top">Top</label><br>
-        </section>
-    </section>
-</section>
+            <div class="card step-card instruction-section" id="e2pt">
+                <div class="card-body">
+                    <h2 class="mb-3">Eighth Size (16-Page Mini)</h2>
+                    <p class="text-muted mb-4">Double-Sided / Portrait / Top-Fold</p>
+                    <ol class="mb-4">
+                        <li>Hold the page with the front cover at the bottom right.</li>
+                        <li>Fold in half left-to-right, keeping the front visible.</li>
+                        <li>Fold in half left-to-right again, keeping the front visible.</li>
+                        <li>Fold in half top-to-bottom, keeping the front visible.</li>
+                        <li>Repeat for any additional sheets, nesting them in the middle fold of each previous sheet.</li>
+                        <li>Staple the spine, then cut around the outside edges to free up the pages.</li>
+                    </ol>
+                    <img src="img/folding-e2pt.png" alt="Folding diagram" class="instruction-image">
+                </div>
+            </div>
 
-<section class="header" id="e1ps" style="display:none">
-    <h1>Eighth Size (Mini)</h1>
-    <p>Single-Sided / Portrait / Side-Fold</p><br><br>
-    <ol><li>Hold the page with the front cover at the bottom right.</li>
-    <li>Fold in half (hamburger style).</li>
-    <li>Cut along the top of the back cover, to create a slit in the middle of the paper.</li>
-    <li>Unfold, then fold in half (hotdog style).</li>
-    <li>Push the two sides in, allowing the middle pages to split out into a diamond.</li>
-    <li>Starting with the back cover, fold the pages together until the back is opposite the front.</li>
-    </ol>
-    <img src="img/folding-e1ps.png"></img>
-</section>
+            <div class="card step-card instruction-section" id="e2ls">
+                <div class="card-body">
+                    <h2 class="mb-3">Eighth Size (16-Page Mini)</h2>
+                    <p class="text-muted mb-4">Double-Sided / Landscape / Side-Fold</p>
+                    <ol class="mb-4">
+                        <li>Hold the page with the front cover at the bottom right.</li>
+                        <li>Fold in half top-to-bottom, keeping the front visible.</li>
+                        <li>Fold in half top-to-bottom again, keeping the front visible.</li>
+                        <li>Fold in half left-to-right, keeping the front visible.</li>
+                        <li>Repeat for any additional sheets, nesting them in the middle fold of each previous sheet.</li>
+                        <li>Staple the spine, then cut around the outside edges to free up the pages.</li>
+                    </ol>
+                    <img src="img/folding-e2ls.png" alt="Folding diagram" class="instruction-image">
+                </div>
+            </div>
 
-<section class="header" id="e1pt" style="display:none">
-    <h1>Eighth Size (Minizine)</h1>
-    <p>Single-Sided / Portrait / Top-Fold</p><br><br>
-    <ol><li>Hold the page with the front cover at the bottom left.</li>
-    <li>On the top row: Cut between the first and second page in the row, and between the third and fourth page in the row.</li>
-    <li>On the bottom: Cut between the second and third page in the row.</li>
-    <li>Starting with the top right, fold down so the pages are face-to-face, then over so the pages are back-to-back.</li>
-    <li>Repeat this pattern until you get to the back cover, which folds over the rest of the pages.</li>
-    <li>Staple the middle spine to add some support.</li>
-    </ol>
-    <img src="img/folding-e1pt.png"></img>
-</section>
+            <div class="card step-card instruction-section" id="e2lt">
+                <div class="card-body">
+                    <h2 class="mb-3">Eighth Size (16-Page Mini)</h2>
+                    <p class="text-muted mb-4">Double-Sided / Landscape / Top-Fold</p>
+                    <ol class="mb-4">
+                        <li>Hold the page with the front cover at the bottom right.</li>
+                        <li>Fold in half top-to-bottom, keeping the front visible.</li>
+                        <li>Fold in half left-to-right, keeping the front visible.</li>
+                        <li>Fold in half top-to-bottom again, keeping the front visible.</li>
+                        <li>Repeat for any additional sheets, nesting them in the middle fold of each previous sheet.</li>
+                        <li>Staple the spine, then cut around the outside edges to free up the pages.</li>
+                    </ol>
+                    <img src="img/folding-e2lt.png" alt="Folding diagram" class="instruction-image">
+                </div>
+            </div>
 
-<section class="header" id="e1ls" style="display:none">
-    <h1>Eighth Size (Minizine)</h1>
-    <p>Single-Sided / Landscape / Side-Fold</p><br><br>
-    <ol><li>Hold the page with the front cover at the bottom right.</li>
-    <li>On the left column: Cut the seam beneath the top page, and the seam above the bottom page.</li>
-    <li>On the right column: Cut the seam between the middle two pages.</li>
-    <li>Starting with the top left, fold over so the pages are face-to-face, then down so the pages are back-to-back.</li>
-    <li>Repeat this pattern until you get to the back cover, which folds over the rest of the pages.</li>
-    <li>Staple the middle spine to add some support.</li>
-    </ol>
-    <img src="img/folding-e1ls.png"></img>
-</section>
+            <div class="card step-card instruction-section" id="q1ps">
+                <div class="card-body">
+                    <h2 class="mb-3">Quarter Size</h2>
+                    <p class="text-muted mb-4">Single-Sided / Portrait / Side-Fold</p>
+                    <ol class="mb-4">
+                        <li>Hold the page with the front cover at the bottom right.</li>
+                        <li>Fold in half top-to-bottom, keeping the front visible.</li>
+                        <li>Fold in half left-to-right, keeping the front visible.</li>
+                        <li>Repeat for any additional sheets, nesting them in the middle fold of each previous sheet.</li>
+                        <li>Staple the spine.</li>
+                    </ol>
+                    <img src="img/folding-q1ps.png" alt="Folding diagram" class="instruction-image">
+                </div>
+            </div>
 
-<section class="header" id="e1lt" style="display:none">
-    <h1>Eighth Size (Minizine)</h1>
-    <p>Single-Sided / Landscape / Top-Fold</p><br><br>
-    <ol><li>Hold the page so the front cover is at the bottom right.</li>
-    <li>Fold in half (hamburger style).</li>
-    <li>Cut along the top of the back cover, to create a slit in the middle of the paper.</li>
-    <li>Unfold, then fold in half (hotdog style).</li>
-    <li>Push the two sides in, allowing the middle pages to split out into a diamond.</li>
-    <li>Starting with the back cover, fold the pages together until the back is opposite the front.</li>
-    </ol>
-    <img src="img/folding-e1lt.png"></img>
-</section>
+            <div class="card step-card instruction-section" id="q1pt">
+                <div class="card-body">
+                    <h2 class="mb-3">Quarter Size</h2>
+                    <p class="text-muted mb-4">Single-Sided / Portrait / Top-Fold</p>
+                    <ol class="mb-4">
+                        <li>Hold the page with the front cover at the bottom right.</li>
+                        <li>Fold in half left-to-right, keeping the front visible.</li>
+                        <li>Fold in half top-to-bottom, keeping the front visible.</li>
+                        <li>Repeat for any additional sheets, nesting them in the middle fold of each previous sheet.</li>
+                        <li>Staple the spine.</li>
+                    </ol>
+                    <img src="img/folding-q1pt.png" alt="Folding diagram" class="instruction-image">
+                </div>
+            </div>
 
-<section class="header" id="e2ps" style="display:none">
-    <h1>Eighth Size (16-Page Mini)</h1>
-    <p>Double-Sided / Portrait / Side-Fold</p><br><br>
-    <ol><li>Hold the page with the front cover at the bottom right.</li>
-    <li>Fold in half left-to-right, keeping the front visible.</li>
-    <li>Fold in half top-to-bottom, keeping the front visible.</li>
-    <li>Fold in half left-to-right again, keeping the front visible.</li>
-    <li>Repeat for any additional sheets, nesting them in the middle fold of each previous sheet.</li>
-    <li>Staple the spine, then cut around the outside edges to free up the pages.</li>
-    </ol>
-    <img src="img/folding-e2ps.png"></img>
-</section>
+            <div class="card step-card instruction-section" id="q1ls">
+                <div class="card-body">
+                    <h2 class="mb-3">Quarter Size</h2>
+                    <p class="text-muted mb-4">Single-Sided / Landscape / Side-Fold</p>
+                    <ol class="mb-4">
+                        <li>Hold the page with the front cover at the bottom right.</li>
+                        <li>Fold in half top-to-bottom, keeping the front visible.</li>
+                        <li>Fold in half left-to-right, keeping the spine visible.</li>
+                        <li>Repeat for any additional sheets, nesting them in the middle fold of each previous sheet.</li>
+                        <li>Staple the spine.</li>
+                    </ol>
+                    <img src="img/folding-q1ls.png" alt="Folding diagram" class="instruction-image">
+                </div>
+            </div>
 
-<section class="header" id="e2pt" style="display:none">
-    <h1>Eighth Size (16-Page Mini)</h1>
-    <p>Double-Sided / Portrait / Top-Fold</p><br><br>
-    <ol><li>Hold the page with the front cover at the bottom right.</li>
-    <li>Fold in half left-to-right, keeping the front visible.</li>
-    <li>Fold in half left-to-right again, keeping the front visible.</li>
-    <li>Fold in half top-to-bottom, keeping the front visible.</li>
-    <li>Repeat for any additional sheets, nesting them in the middle fold of each previous sheet.</li>
-    <li>Staple the spine, then cut around the outside edges to free up the pages.</li>
-    </ol>
-    <img src="img/folding-e2pt.png"></img>
-</section>
+            <div class="card step-card instruction-section" id="q1lt">
+                <div class="card-body">
+                    <h2 class="mb-3">Quarter Size</h2>
+                    <p class="text-muted mb-4">Single-Sided / Landscape / Top-Fold</p>
+                    <ol class="mb-4">
+                        <li>Hold the page with the front cover at the bottom right.</li>
+                        <li>Fold in half left-to-right, keeping the front visible.</li>
+                        <li>Fold in half top-to-bottom, keeping the front visible.</li>
+                        <li>Repeat for any additional sheets, nesting them in the middle fold of each previous sheet.</li>
+                        <li>Staple the spine.</li>
+                    </ol>
+                    <img src="img/folding-q1lt.png" alt="Folding diagram" class="instruction-image">
+                </div>
+            </div>
 
-<section class="header" id="e2ls" style="display:none">
-    <h1>Eighth Size (16-Page Mini)</h1>
-    <p>Double-Sided / Landscape / Side-Fold</p><br><br>
-    <ol><li>Hold the page with the front cover at the bottom right.</li>
-    <li>Fold in half top-to-bottom, keeping the front visible.</li>
-    <li>Fold in half top-to-bottom again, keeping the front visible.</li>
-    <li>Fold in half left-to-right, keeping the front visible.</li>
-    <li>Repeat for any additional sheets, nesting them in the middle fold of each previous sheet.</li>
-    <li>Staple the spine, then cut around the outside edges to free up the pages.</li>
-    </ol>
-    <img src="img/folding-e2ls.png"></img>
-</section>
+            <div class="card step-card instruction-section" id="q2ps">
+                <div class="card-body">
+                    <h2 class="mb-3">Quarter Size</h2>
+                    <p class="text-muted mb-4">Double-Sided / Portrait / Side-Fold</p>
+                    <ol class="mb-4">
+                        <li>Keep sheets stacked in the order they printed.</li>
+                        <li>Lay the pile with the front cover at the top right.</li>
+                        <li>Cut the entire pile in half horizontally.</li>
+                        <li>Stack the top pile on top of the bottom. The front & back covers should be on top.</li>
+                        <li>Fold the whole stack in half left-to-right and staple the spine.</li>
+                    </ol>
+                    <img src="img/folding-q2ps.png" alt="Folding diagram" class="instruction-image">
+                </div>
+            </div>
 
-<section class="header" id="e2lt" style="display:none">
-    <h1>Eighth Size (16-Page Mini)</h1>
-    <p>Double-Sided / Landscape / Top-Fold</p><br><br>
-    <ol><li>Hold the page with the front cover at the bottom right.</li>
-    <li>Fold in half top-to-bottom, keeping the front visible.</li>
-    <li>Fold in half left-to-right, keeping the front visible.</li>
-    <li>Fold in half top-to-bottom again, keeping the front visible.</li>
-    <li>Repeat for any additional sheets, nesting them in the middle fold of each previous sheet.</li>
-    <li>Staple the spine, then cut around the outside edges to free up the pages.</li>
-    </ol>
-    <img src="img/folding-e2lt.png"></img>
-</section>
+            <div class="card step-card instruction-section" id="q2pt">
+                <div class="card-body">
+                    <h2 class="mb-3">Quarter Size</h2>
+                    <p class="text-muted mb-4">Double-Sided / Portrait / Top-Fold</p>
+                    <ol class="mb-4">
+                        <li>Keep sheets stacked in the order they printed.</li>
+                        <li>Lay the pile with the front cover at the bottom right.</li>
+                        <li>Cut the entire pile in half vertically.</li>
+                        <li>Stack the right-hand pile on top of the left one. The front & back covers should be on top.</li>
+                        <li>Fold the whole stack in half top-to-bottom and staple the spine.</li>
+                    </ol>
+                    <img src="img/folding-q2pt.png" alt="Folding diagram" class="instruction-image">
+                </div>
+            </div>
 
-<section class="header" id="q1ps" style="display:none">
-    <h1>Quarter Size</h1>
-    <p>Single-Sided / Portrait / Side-Fold</p><br><br>
-    <ol><li>Hold the page with the front cover at the bottom right.</li>
-    <li>Fold in half top-to-bottom, keeping the front visible.</li>
-    <li>Fold in half left-to-right, keeping the front visible.</li>
-    <li>Repeat for any additional sheets, nesting them in the middle fold of each previous sheet.</li>
-    <li>Staple the spine.</li>
-    </ol>
-    <img src="img/folding-q1ps.png"></img>
-</section>
+            <div class="card step-card instruction-section" id="q2ls">
+                <div class="card-body">
+                    <h2 class="mb-3">Quarter Size</h2>
+                    <p class="text-muted mb-4">Double-Sided / Landscape / Side-Fold</p>
+                    <ol class="mb-4">
+                        <li>Keep sheets stacked in the order they printed.</li>
+                        <li>Lay the pile with the front cover at the top right.</li>
+                        <li>Cut the entire pile in half horizontally.</li>
+                        <li>Stack the top pile on top of the bottom. The front & back covers should be on top.</li>
+                        <li>Fold the whole stack in half left-to-right and staple the spine.</li>
+                    </ol>
+                    <img src="img/folding-q2ls.png" alt="Folding diagram" class="instruction-image">
+                </div>
+            </div>
 
-<section class="header" id="q1pt" style="display:none">
-    <h1>Quarter Size</h1>
-    <p>Single-Sided / Portrait / Top-Fold</p><br><br>
-    <ol><li>Hold the page with the front cover at the bottom right.</li>
-    <li>Fold in half left-to-right, keeping the front visible.</li>
-    <li>Fold in half top-to-bottom, keeping the front visible.</li>
-    <li>Repeat for any additional sheets, nesting them in the middle fold of each previous sheet.</li>
-    <li>Staple the spine.</li>
-    </ol>
-    <img src="img/folding-q1pt.png"></img>
-</section>
+            <div class="card step-card instruction-section" id="q2lt">
+                <div class="card-body">
+                    <h2 class="mb-3">Quarter Size</h2>
+                    <p class="text-muted mb-4">Double-Sided / Landscape / Top-Fold</p>
+                    <ol class="mb-4">
+                        <li>Keep sheets stacked in the order they printed.</li>
+                        <li>Lay the pile with the front cover at the bottom right.</li>
+                        <li>Cut the entire pile in half vertically.</li>
+                        <li>Stack the right-hand pile on top of the left one. The front & back covers should be on top.</li>
+                        <li>Fold the whole stack in half top-to-bottom and staple the spine.</li>
+                    </ol>
+                    <img src="img/folding-q2lt.png" alt="Folding diagram" class="instruction-image">
+                </div>
+            </div>
 
-<section class="header" id="q1ls" style="display:none">
-    <h1>Quarter Size</h1>
-    <p>Single-Sided / Landscape / Side-Fold</p><br><br>
-    <ol><li>Hold the page with the front cover at the bottom right.</li>
-    <li>Fold in half top-to-bottom, keeping the front visible.</li>
-    <li>Fold in half left-to-right, keeping the spine visible.</li>
-    <li>Repeat for any additional sheets, nesting them in the middle fold of each previous sheet.</li>
-    <li>Staple the spine.</li>
-    </ol>
-    <img src="img/folding-q1ls.png"></img>
-</section>
+            <div class="card step-card instruction-section" id="hp">
+                <div class="card-body">
+                    <h2 class="mb-3">Half Size</h2>
+                    <p class="text-muted mb-4">Portrait</p>
+                    <ol class="mb-4">
+                        <li>Keep sheets stacked in the order they printed.</li>
+                        <li>Hold the pile with the front cover on the right.</li>
+                        <li>Fold in half left-to-right.</li>
+                        <li>Staple the spine.</li>
+                    </ol>
+                    <img src="img/folding-hp.png" alt="Folding diagram" class="instruction-image">
+                </div>
+            </div>
 
-<section class="header" id="q1lt" style="display:none">
-    <h1>Quarter Size</h1>
-    <p>Single-Sided / Landscape / Top-Fold</p><br><br>
-    <ol><li>Hold the page with the front cover at the bottom right.</li>
-    <li>Fold in half left-to-right, keeping the front visible.</li>
-    <li>Fold in half top-to-bottom, keeping the front visible.</li>
-    <li>Repeat for any additional sheets, nesting them in the middle fold of each previous sheet.</li>
-    <li>Staple the spine.</li>
-    </ol>
-    <img src="img/folding-q1lt.png"></img>
-</section>
+            <div class="card step-card instruction-section" id="hl">
+                <div class="card-body">
+                    <h2 class="mb-3">Half Size</h2>
+                    <p class="text-muted mb-4">Landscape</p>
+                    <ol class="mb-4">
+                        <li>Keep sheets stacked in the order they printed.</li>
+                        <li>Hold the pile with the front cover on the bottom.</li>
+                        <li>Fold in half top-to-bottom.</li>
+                        <li>Staple the spine.</li>
+                    </ol>
+                    <img src="img/folding-hl.png" alt="Folding diagram" class="instruction-image">
+                </div>
+            </div>
+        </div>
+    </div>
 
-<section class="header" id="q2ps" style="display:none">
-    <h1>Quarter Size</h1>
-    <p>Double-Sided / Portrait / Side-Fold</p><br><br>
-    <ol><li>Keep sheets stacked in the order they printed.</li>
-    <li>Lay the pile with the front cover at the top right.</li>
-    <li>Cut the entire pile in half horizontally.</li>
-    <li>Stack the top pile on top of the bottom. The front & back covers should be on top.</li>
-    <li>Fold the whole stack in half left-to-right and staple the spine.</li>
-    </ol>
-    <img src="img/folding-q2ps.png"></img>
-</section>
-
-<section class="header" id="q2pt" style="display:none">
-    <h1>Quarter Size</h1>
-    <p>Double-Sided / Portrait / Top-Fold</p><br><br>
-    <ol><li>Keep sheets stacked in the order they printed.</li>
-    <li>Lay the pile with the front cover at the bottom right.</li>
-    <li>Cut the entire pile in half vertically.</li>
-    <li>Stack the right-hand pile on top of the left one. The front & back covers should be on top.</li>
-    <li>Fold the whole stack in half top-to-bottom and staple the spine.</li>
-    </ol>
-    <img src="img/folding-q2pt.png"></img>
-</section>
-
-<section class="header" id="q2ls" style="display:none">
-    <h1>Quarter Size</h1>
-    <p>Double-Sided / Landscape / Side-Fold</p><br><br>
-    <ol><li>Keep sheets stacked in the order they printed.</li>
-    <li>Lay the pile with the front cover at the top right.</li>
-    <li>Cut the entire pile in half horizontally.</li>
-    <li>Stack the top pile on top of the bottom. The front & back covers should be on top.</li>
-    <li>Fold the whole stack in half left-to-right and staple the spine.</li>
-    </ol>
-    <img src="img/folding-q2ls.png"></img>
-</section>
-
-<section class="header" id="q2lt" style="display:none">
-    <h1>Quarter Size</h1>
-    <p>Double-Sided / Landscape / Top-Fold</p><br><br>
-    <ol><li>Keep sheets stacked in the order they printed.</li>
-    <li>Lay the pile with the front cover at the bottom right.</li>
-    <li>Cut the entire pile in half vertically.</li>
-    <li>Stack the right-hand pile on top of the left one. The front & back covers should be on top.</li>
-    <li>Fold the whole stack in half top-to-bottom and staple the spine.</li>
-    </ol>
-    <img src="img/folding-q2lt.png"></img>
-</section>
-
-<section class="header" id="hp" style="display:none">
-    <h1>Half Size</h1>
-    <p>Portrait</p><br><br>
-    <ol><li>Keep sheets stacked in the order they printed.</li>
-    <li>Hold the pile with the front cover on the right.</li>
-    <li>Fold in half left-to-right.</li>
-    <li>Staple the spine.</li>
-    </ol>
-    <img src="img/folding-hp.png"></img>
-</section>
-
-<section class="header" id="hl" style="display:none">
-    <h1>Half Size</h1>
-    <p>Landscape</p><br><br>
-    <ol><li>Keep sheets stacked in the order they printed.</li>
-    <li>Hold the pile with the front cover on the bottom.</li>
-    <li>Fold in half top-to-bottom.</li>
-    <li>Staple the spine.</li>
-    </ol>
-    <img src="img/folding-hl.png"></img>
-</section>
-<script>
-var open = "";
-
-function refreshSpecs() {
-    if(open != "") {
-        document.getElementById(open).style.display = "none";
-        open = "";
-    }
-    
-    if(document.getElementById("zs-mini").checked) {
-        open = open + "e";
-    } else if(document.getElementById("zs-half").checked) {
-        open = open + "h";
-    } else {
-        open = open + "q";
-    }
-    
-    if(open == "h" ) {
-        if(document.getElementById("ori-portrait").checked) {
-            open = open + "p";
-        } else {
-            open = open + "l";
-        }
-    } else {
-        if(document.getElementById("dx-double").checked) {
-            open = open + "2";
-        } else {
-            open = open + "1";
-        }
-        
-        if(document.getElementById("ori-portrait").checked) {
-            open = open + "p";
-        } else {
-            open = open + "l";
-        }
-        
-        if(document.getElementById("spine-side").checked) {
-            open = open + "s";
-        } else {
-            open = open + "t";
-        }
-    }
-    
-    console.log(open);
-    document.getElementById(open).style.display = "flex";
-}
-
-function loadSpecs(str) {
-    if(str.length >=4) {
-        if(str.charAt(0) == "e") {
-            document.getElementById("zs-mini").checked = true;
-        } else if(str.charAt(0) == "h") {
-            document.getElementById("zs-half").checked = true;
-        } else {
-            document.getElementById("zs-qtr").checked = true;
-        }
-        
-        if(str.charAt(1) == "1") {
-            document.getElementById("dx-single").checked = true;
-        } else {
-            document.getElementById("dx-double").checked = true;
-        }
-        
-        if(str.charAt(2) == "p") {
-            document.getElementById("ori-portrait").checked = true;
-        } else {
-            document.getElementById("ori-landscape").checked = true;
-        }
-        
-        if(str.charAt(3) == "s") {
-            document.getElementById("spine-side").checked = true;
-        } else {
-            document.getElementById("spine-top").checked = true;
-        }
-    }
-    refreshSpecs();
-}
-
-if(location.search != "") {
-    loadSpecs(location.search.substr(1));
-} else {
-    refreshSpecs();
-}
-
-</script>
+    <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="./folding.js"></script>
+</body>
+</html>
